@@ -79,7 +79,7 @@ query Vehicles($swLat: Float!, $swLon: Float!, $neLat: Float!, $neLon: Float!) {
       if (data is! Map) return [];
       if (data['errors'] != null) {
         // fallback: egyszerű query változók nélkül
-        return _vehiclePositionsSimple(
+        return await _vehiclePositionsSimple(
           swLat: swLat,
           swLon: swLon,
           neLat: neLat,

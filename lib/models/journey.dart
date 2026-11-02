@@ -1,4 +1,3 @@
-import 'stop.dart';
 
 class JourneyLeg {
   final String mode; // bus, train, walk

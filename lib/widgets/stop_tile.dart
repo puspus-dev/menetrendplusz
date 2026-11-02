@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../models/stop.dart';
-import '../theme/app_theme.dart';
 import 'provider_badge.dart';
 
 class StopTile extends StatelessWidget {

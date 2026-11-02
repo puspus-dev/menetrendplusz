@@ -18,7 +18,7 @@ class AppState extends ChangeNotifier {
   List<Stop> _cityStops = [];
   List<Stop> _mavStops = [];
   Set<String> _enabledCityFeeds = {};
-  Map<String, Map<String, dynamic>> _cityFeedMeta = {};
+  final Map<String, Map<String, dynamic>> _cityFeedMeta = {};
   bool _isLoading = false;
   String? _error;
   String? _statusMessage;

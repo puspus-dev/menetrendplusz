@@ -228,7 +228,6 @@ class VolanGtfs {
     var stopIdx = -1;
     var tripIdx = -1;
     var depIdx = -1;
-    var seqIdx = -1;
 
     await for (final line in stream) {
       if (!headerDone) {
@@ -236,7 +235,6 @@ class VolanGtfs {
         stopIdx = h.indexOf('stop_id');
         tripIdx = h.indexOf('trip_id');
         depIdx = h.indexOf('departure_time');
-        seqIdx = h.indexOf('stop_sequence');
         headerDone = true;
         continue;
       }

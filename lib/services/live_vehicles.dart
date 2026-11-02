@@ -42,7 +42,6 @@ class LiveVehiclesService {
         int? delay;
         if (keses is num) delay = keses.round();
 
-        final viszonylat = v['Viszonylat'] as Map? ?? {};
         final vonatszam = v['Vonatszam']?.toString() ?? '?';
         final tipus = v['Tipus']?.toString();
 

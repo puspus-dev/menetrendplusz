@@ -4,6 +4,13 @@ class GtfsFeed {
   final String name;
   final String operatorName;
   final String url;
+
+  /// Opcionális GTFS-RT feed URL (VehiclePositions / TripUpdates / Alerts).
+  final String? rtUrl;
+
+  /// Milyen RT típus: vehicle | trip | alerts | unknown
+  final String? rtKind;
+
   final String? note;
   final bool available;
 
@@ -12,9 +19,13 @@ class GtfsFeed {
     required this.name,
     required this.operatorName,
     required this.url,
+    this.rtUrl,
+    this.rtKind,
     this.note,
     this.available = true,
   });
+
+  bool get hasRealtime => rtUrl != null && rtUrl!.isNotEmpty;
 }
 
 /// Elérhető városi feedek — közvetlen zip URL-ekkel ahol van.
@@ -38,18 +49,20 @@ class KnownFeeds {
       id: 'szekesfehervar',
       name: 'Székesfehérvár',
       operatorName: 'Székesfehérvár Önkormányzat',
-      // MenetBrand proxy; ha botvédelem, később frissíthető
       url: 'https://gtfs.menetbrand.com/download/szekesfehervar/',
       note: 'MenetBrand forrás — letöltés sikertelen lehet',
-      available: true,
     ),
     GtfsFeed(
       id: 'szeged',
       name: 'Szeged',
-      operatorName: 'SZKT',
-      url: 'https://gtfs.menetbrand.com/download/szeged/',
-      note: 'Villamos, troli, busz — MenetBrand / NAP',
-      available: true,
+      operatorName: 'SZKT / szegedimenetrend.hu',
+      // Közvetlen, stabil forrás (Cseh Attila GTFS)
+      url: 'http://szegedimenetrend.hu/google_transit.zip',
+      rtUrl: 'http://szegedimenetrend.hu/gtfs.dat',
+      rtKind: 'alerts',
+      note:
+          'Statikus GTFS + GTFS-RT Alerts (forgalmi változások). '
+          'Nincs élő járműpozíció a nyilvános RT feedben.',
     ),
     GtfsFeed(
       id: 'pecs',
@@ -62,7 +75,7 @@ class KnownFeeds {
       id: 'miskolc',
       name: 'Miskolc',
       operatorName: 'MVK Zrt.',
-      url: 'http://gtfs.cdata.hu/mvkzrt.zip',
+      url: 'http://mvkzrt.hu/gtfs/mvkzrt.zip',
       note: 'Busz + villamos',
     ),
     GtfsFeed(
@@ -70,16 +83,15 @@ class KnownFeeds {
       name: 'Eger',
       operatorName: 'helyimenetrend.hu (archív)',
       url: 'http://helyimenetrend.hu/eger_GTFS_E01-E09.zip',
-      note: 'Archív GTFS (2021/2022) — a projekt szünetel, nem frissül',
-      available: true,
+      note: 'Archív, nem frissül.',
     ),
     GtfsFeed(
       id: 'dunaujvaros',
       name: 'Dunaújváros',
       operatorName: 'helyimenetrend.hu (archív)',
       url: 'http://helyimenetrend.hu/dunaujvaros_GTFS_B01-B21.zip',
-      note: 'Archív GTFS — a projekt szünetel; helyi járatok ma a Volán GTFS-ben is lehetnek',
-      available: true,
+      note:
+          'Archív, nem frissül.',
     ),
   ];
 

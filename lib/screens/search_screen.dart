@@ -79,8 +79,6 @@ class _SearchScreenState extends State<SearchScreen> {
               }
             },
             itemBuilder: (ctx) {
-              final s = ctx.watch<AppState>();
-              // PopupMenuButton itemBuilder can't use watch reliably; read instead
               final enabled = context.read<AppState>().useEmese;
               return [
                 CheckedPopupMenuItem<String>(

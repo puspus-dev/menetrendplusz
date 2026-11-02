@@ -35,6 +35,6 @@ class Departure {
     if (isCancelled) return 'Törölve';
     if (delayMinutes == null || delayMinutes == 0) return 'Időben';
     if (delayMinutes! > 0) return '+$delayMinutes perc';
-    return '${delayMinutes} perc';
+    return '$delayMinutes perc';
   }
 }

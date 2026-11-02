@@ -237,31 +237,9 @@ class _MapScreenState extends State<MapScreen> {
   }
 
 
-  Widget _infoRow(IconData icon, String text, [Color? color]) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Row(
-        children: [
-          Icon(icon, size: 20, color: color ?? Colors.grey.shade700),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: color != null ? FontWeight.w600 : FontWeight.normal,
-                color: color,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<AppState>();
     final filtered = _filtered;
     final trainCount =
         filtered.where((v) => v.kind == VehicleKind.train).length;
@@ -441,6 +419,29 @@ class _MapScreenState extends State<MapScreen> {
       ),
     );
   }
+
+  Widget _legendRing(Color color, String label) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 12,
+            height: 12,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: color, width: 2.5),
+              color: Colors.transparent,
+            ),
+          ),
+          const SizedBox(width: 6),
+          Text(label, style: const TextStyle(fontSize: 11)),
+        ],
+      ),
+    );
+  }
+
 }
 
 

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/gtfs_feed.dart';
 import '../services/app_state.dart';
 import '../theme/app_theme.dart';
+import '../services/gtfs_rt_alerts.dart';
 
 class FeedsScreen extends StatefulWidget {
   const FeedsScreen({super.key});
@@ -83,6 +84,67 @@ class _FeedsScreenState extends State<FeedsScreen> {
     if (ok != true || !mounted) return;
     await context.read<AppState>().deleteCityFeed(feed.id);
     if (mounted) setState(() {});
+  }
+
+
+  Future<void> _showRtAlerts(GtfsFeed feed) async {
+    final url = feed.rtUrl;
+    if (url == null) return;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(child: CircularProgressIndicator()),
+    );
+    try {
+      final texts = await GtfsRtAlertsService().fetchAlertTexts(url);
+      if (!mounted) return;
+      Navigator.of(context).pop(); // loading
+      await showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text('${feed.name} — forgalmi infó'),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: texts.isEmpty
+                ? const Text(
+                    'Nincs aktív riasztás a GTFS-RT feedben '
+                    '(vagy a feed csak Alerts típust ad, és most üres / elavult).',
+                  )
+                : ListView(
+                    shrinkWrap: true,
+                    children: [
+                      Text(
+                        'Forrás: GTFS-RT Alerts\n${feed.rtUrl}',
+                        style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                      ),
+                      const SizedBox(height: 12),
+                      ...texts.map(
+                        (s) => Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(s),
+                        ),
+                      ),
+                    ],
+                  ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('Bezár'),
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('RT hiba: $e'),
+          backgroundColor: Colors.red.shade700,
+        ),
+      );
+    }
   }
 
   @override
@@ -176,6 +238,30 @@ class _FeedsScreenState extends State<FeedsScreen> {
                       Text(feed.note!,
                           style: theme.textTheme.bodySmall
                               ?.copyWith(color: Colors.grey.shade600)),
+                    ],
+                    if (feed.hasRealtime) ...[
+                      const SizedBox(height: 8),
+                      Wrap(
+                        spacing: 8,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Chip(
+                            avatar: const Icon(Icons.bolt_rounded, size: 16),
+                            label: Text(
+                              feed.rtKind == 'alerts'
+                                  ? 'GTFS-RT Alerts'
+                                  : 'GTFS-RT',
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                            visualDensity: VisualDensity.compact,
+                          ),
+                          TextButton.icon(
+                            onPressed: () => _showRtAlerts(feed),
+                            icon: const Icon(Icons.campaign_rounded, size: 18),
+                            label: const Text('Forgalmi infó'),
+                          ),
+                        ],
+                      ),
                     ],
                     if (updated != null) ...[
                       const SizedBox(height: 4),
