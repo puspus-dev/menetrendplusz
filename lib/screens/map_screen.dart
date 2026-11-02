@@ -88,8 +88,8 @@ class _MapScreenState extends State<MapScreen> {
   /// Egyszerű rács-alapú cluster zoom < 10 esetén
 
   // Szolgáltató outline — vastag, jól elkülönül a késés kitöltéstől
-  static const Color _outlineMav = Color(0xFF1565C0); // élénk kék
-  static const Color _outlineVolan = Color(0xFFF9A825); // élénk sárga
+  static const Color _outlineMav = AppTheme.mavOutline;
+  static const Color _outlineVolan = AppTheme.volanOutline;
 
   Color _providerOutline(LiveVehicle v) =>
       v.provider == 'mav' || v.kind == VehicleKind.train
@@ -149,7 +149,7 @@ class _MapScreenState extends State<MapScreen> {
                 border: Border.all(color: outline, width: 3.5),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.35),
+                    color: Colors.black.withValues(alpha: 0.35),
                     blurRadius: 5,
                     offset: const Offset(0, 2),
                   ),
@@ -195,7 +195,7 @@ class _MapScreenState extends State<MapScreen> {
             border: Border.all(color: outline, width: 3.5),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.35),
+                color: Colors.black.withValues(alpha: 0.35),
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),
@@ -325,8 +325,8 @@ class _MapScreenState extends State<MapScreen> {
                       onSelected: (v) => setState(() => _showTrains = v),
                       avatar: Icon(Icons.train_rounded,
                           size: 18,
-                          color: _showTrains ? AppTheme.mav : null),
-                      selectedColor: AppTheme.mav.withOpacity(0.15),
+                          color: _showTrains ? AppTheme.mavOutline : null),
+                      selectedColor: AppTheme.mavOutline.withValues(alpha: 0.15),
                     ),
                     const SizedBox(width: 8),
                     FilterChip(
@@ -335,8 +335,8 @@ class _MapScreenState extends State<MapScreen> {
                       onSelected: (v) => setState(() => _showBuses = v),
                       avatar: Icon(Icons.directions_bus_rounded,
                           size: 18,
-                          color: _showBuses ? AppTheme.volan : null),
-                      selectedColor: AppTheme.volan.withOpacity(0.15),
+                          color: _showBuses ? AppTheme.volanOutline : null),
+                      selectedColor: AppTheme.volanOutline.withValues(alpha: 0.15),
                     ),
                     const Spacer(),
                     Text(
@@ -570,7 +570,7 @@ class _VehicleDetailSheetState extends State<_VehicleDetailSheet> {
               Row(
                 children: [
                   CircleAvatar(
-                    backgroundColor: delayColor.withOpacity(0.2),
+                    backgroundColor: delayColor.withValues(alpha: 0.2),
                     child: Icon(v.icon, color: delayColor),
                   ),
                   const SizedBox(width: 12),

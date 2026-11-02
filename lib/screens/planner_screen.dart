@@ -387,7 +387,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
           }),
           if (_results.isEmpty && !_loading && _error == null)
             Card(
-              color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.5),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
               child: const Padding(
                 padding: EdgeInsets.all(24),
                 child: Column(

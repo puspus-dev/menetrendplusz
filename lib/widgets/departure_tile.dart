@@ -23,7 +23,7 @@ class DepartureTile extends StatelessWidget {
         width: 56,
         height: 56,
         decoration: BoxDecoration(
-          color: isMav ? AppTheme.mav.withOpacity(0.12) : AppTheme.volan.withOpacity(0.12),
+          color: isMav ? AppTheme.mav.withValues(alpha: 0.12) : AppTheme.volan.withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(

@@ -194,7 +194,7 @@ class _SearchScreenState extends State<SearchScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               child: Material(
-                color: AppTheme.volan.withOpacity(0.08),
+                color: AppTheme.volan.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(12),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(12),

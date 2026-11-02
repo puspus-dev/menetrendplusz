@@ -192,7 +192,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
                       children: [
                         CircleAvatar(
                           backgroundColor: enabled
-                              ? AppTheme.primary.withOpacity(0.15)
+                              ? AppTheme.primary.withValues(alpha: 0.15)
                               : Colors.grey.shade200,
                           child: Icon(
                             Icons.location_city_rounded,
