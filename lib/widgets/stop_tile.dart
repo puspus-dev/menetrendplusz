@@ -26,7 +26,7 @@ class StopTile extends StatelessWidget {
         onTap: onTap,
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         leading: CircleAvatar(
-          backgroundColor: color.withOpacity(0.15),
+          backgroundColor: color.withValues(alpha: 0.15),
           child: Icon(
             isMav ? Icons.train_rounded : Icons.directions_bus_rounded,
             color: color,

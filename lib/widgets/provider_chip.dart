@@ -23,7 +23,7 @@ class ProviderChip extends StatelessWidget {
       label: Text(label),
       selected: selected,
       onSelected: (_) => onTap(),
-      selectedColor: effectiveColor.withOpacity(0.2),
+      selectedColor: effectiveColor.withValues(alpha: 0.2),
       checkmarkColor: effectiveColor,
       labelStyle: TextStyle(
         color: selected ? effectiveColor : null,

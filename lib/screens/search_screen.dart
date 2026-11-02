@@ -203,7 +203,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     padding: const EdgeInsets.all(12),
                     child: Row(
                       children: [
-                        Icon(Icons.download_rounded, color: AppTheme.volan),
+                        const Icon(Icons.download_rounded, color: AppTheme.volan),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
@@ -211,8 +211,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             style: theme.textTheme.bodySmall,
                           ),
                         ),
-                        Icon(Icons.chevron_right_rounded,
-                            color: AppTheme.volan),
+                        const Icon(Icons.chevron_right_rounded, color: AppTheme.volan),
                       ],
                     ),
                   ),

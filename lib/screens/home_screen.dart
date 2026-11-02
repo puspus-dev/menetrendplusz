@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/app_state.dart';
 import 'search_screen.dart';
-import 'departures_screen.dart';
+import 'favorites_screen.dart';
 import 'map_screen.dart';
 import 'planner_screen.dart';
 import 'feeds_screen.dart';
@@ -17,13 +17,12 @@ class HomeScreen extends StatelessWidget {
 
     final pages = [
       const SearchScreen(),
-      const DeparturesScreen(),
+      const FavoritesScreen(),
       const MapScreen(),
       const PlannerScreen(),
       const FeedsScreen(),
     ];
 
-    // Clamp tab index if state has fewer tabs historically
     final idx = state.currentTab.clamp(0, pages.length - 1);
 
     return Scaffold(
@@ -60,9 +59,9 @@ class HomeScreen extends StatelessWidget {
               label: 'Keresés',
             ),
             NavigationDestination(
-              icon: Icon(Icons.schedule_rounded),
-              selectedIcon: Icon(Icons.schedule_rounded),
-              label: 'Indulások',
+              icon: Icon(Icons.favorite_border_rounded),
+              selectedIcon: Icon(Icons.favorite_rounded),
+              label: 'Kedvencek',
             ),
             NavigationDestination(
               icon: Icon(Icons.map_outlined),
